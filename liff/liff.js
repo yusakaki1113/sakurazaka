@@ -1,17 +1,16 @@
-window.onload = function (e) {
-    // init で初期化。基本情報を取得。
-    // https://developers.line.me/ja/reference/liff/#initialize-liff-app
-    liff.init(function (data) {
-        initializeApp(data);
-    });
-};
+const LIFF_ID = "2012066476-dzZFbFMw";
 
-function initializeApp(data) {
-    liff
-  .getProfile()
-  .then((profile) => {
-    const name = profile.displayName;
-    document.getElementById('userId').textContent = name;
-  })
-    document.getElementById('userToken').textContent = data.context.utouId;
-}
+window.onload = async function () {
+    const userIdElement = document.getElementById('userId');
+    const userTokenElement = document.getElementById('userToken');
+
+    try {
+        await liff.init({ liffId: LIFF_ID });
+        const profile = await liff.getProfile();
+        userIdElement.textContent = profile.userId;
+        userTokenElement.textContent = liff.getContext().utouId || "取得できません";
+    } catch (error) {
+        console.error("LIFF情報の取得に失敗しました。", error);
+        userIdElement.textContent = `取得できません: ${error.message}`;
+    }
+};
