@@ -7,6 +7,6 @@ indow.onload = function (e) {
 };
 
 function initializeApp(data) {
-    document.getElementById('userId').textContent = data.context.userId;
+    document.getElementById('userId').textContent = "わこち";
     document.getElementById('userToken').textContent = data.context.utouId;
 }
