@@ -6,15 +6,45 @@
     <title>Try Liff</title>
 </head>
 <body>
-    <div id="userId">LIFFスクリプト読み込み中...</div>
-    <script
-        src="https://static.line-scdn.net/liff/edge/2/sdk.js"
-        onerror="document.getElementById('userId').textContent = 'LIFF SDKを読み込めません。ネットワークを確認してください。'">
-    </script>
-    <script
-        src="./liff.js"
-        onerror="document.getElementById('userId').textContent = 'liff.jsを読み込めません。LIFFのエンドポイントにファイルが配置されているか確認してください。'">
-    </script>
+    <div id="userId">LIFF SDKを読み込み中...</div>
     <div id="userToken">ここに表示</div>
+    <script>
+        const userIdElement = document.getElementById("userId");
+
+        function loadScript(src, label) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                const timeout = setTimeout(() => {
+                    script.remove();
+                    reject(new Error(`${label}の読み込みがタイムアウトしました`));
+                }, 15000);
+
+                script.src = src;
+                script.onload = () => {
+                    clearTimeout(timeout);
+                    resolve();
+                };
+                script.onerror = () => {
+                    clearTimeout(timeout);
+                    reject(new Error(`${label}を読み込めません`));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        (async () => {
+            try {
+                await loadScript(
+                    "https://static.line-scdn.net/liff/edge/2/sdk.js",
+                    "LIFF SDK"
+                );
+                userIdElement.textContent = "アプリスクリプトを読み込み中...";
+                await loadScript("./liff.js?v=20261019", "liff.js");
+            } catch (error) {
+                userIdElement.textContent = error.message;
+                console.error("LIFFスクリプトの読み込みに失敗しました。", error);
+            }
+        })();
+    </script>
 </body>
 </html>
