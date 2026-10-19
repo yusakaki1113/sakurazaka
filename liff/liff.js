@@ -1,11 +1,11 @@
 const LIFF_ID = "2012066476-dzZFbFMw";
 
-await liff.init({ liffId: "1234567890-abcdefgh" });
+await liff.init({ liffId: LIFF_ID });
 
 if (!liff.isInClient() && !liff.isLoggedIn()) {
   liff.login();
 }
-document.getElementById('userId').textContent = "わこち";
+document.getElementById('userId').textContent = liff.getProfile().userId;
 
 
 /** window.addEventListener("load", async function () {
