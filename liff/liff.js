@@ -2,6 +2,7 @@ const LIFF_ID = "2012066476-dzZFbFMw";
 
 async function showUserId() {
     const userIdElement = document.getElementById("userId");
+    userIdElement.textContent = "LIFFを初期化しています...";
 
     try {
         await liff.init({ liffId: LIFF_ID });
