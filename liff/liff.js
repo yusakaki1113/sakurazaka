@@ -37,7 +37,7 @@ document.getElementById('userId').textContent = liff.getProfile().userId;
         userIdElement.textContent = profile.userId;
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        userIdElement.textContent = `ユーザーID取得に失敗しました: ${message}`;
+        userIdElement.textContent = `ID取得に失敗しました: ${message}`;
         console.error("LIFF profile retrieval failed.", error);
         return;
     }
