@@ -1,47 +1,28 @@
 const LIFF_ID = "2012066476-dzZFbFMw";
 
-await liff.init({ liffId: LIFF_ID });
-
-if (!liff.isInClient() && !liff.isLoggedIn()) {
-  liff.login();
-}
-document.getElementById('userId').textContent = "わこち";
-
-
-/** window.addEventListener("load", async function () {
-    const userIdElement = document.getElementById('userId');
-    const userTokenElement = document.getElementById('userToken');
-
-    if (typeof liff === "undefined") {
-        userIdElement.textContent = "LIFF SDKを読み込めません。ネットワークとページ設定を確認してください。";
-        console.error("LIFF SDK is not available.");
-        return;
-    }
+async function showUserId() {
+    const userIdElement = document.getElementById("userId");
 
     try {
         await liff.init({ liffId: LIFF_ID });
-    } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        userIdElement.textContent = `LIFF初期化に失敗しました: ${message}`;
-        console.error("LIFF initialization failed.", error);
-        return;
-    }
 
-    if (!liff.isLoggedIn()) {
-        liff.login();
-        return;
-    }
+        if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+        }
 
-    try {
         const profile = await liff.getProfile();
         userIdElement.textContent = profile.userId;
+
+        const userTokenElement = document.getElementById("userToken");
+        if (userTokenElement) {
+            userTokenElement.textContent = liff.getContext().utouId || "取得できません";
+        }
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        userIdElement.textContent = `ID取得に失敗しました: ${message}`;
-        console.error("LIFF profile retrieval failed.", error);
-        return;
+        userIdElement.textContent = `ユーザーIDを取得できません: ${message}`;
+        console.error("LIFFユーザー情報の取得に失敗しました。", error);
     }
+}
 
-    userTokenElement.textContent = liff.getContext().utouId || "取得できません";
-});
-// **/
+showUserId();
