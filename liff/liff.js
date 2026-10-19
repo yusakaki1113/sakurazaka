@@ -5,7 +5,7 @@ await liff.init({ liffId: LIFF_ID });
 if (!liff.isInClient() && !liff.isLoggedIn()) {
   liff.login();
 }
-document.getElementById('userId').textContent = liff.getProfile().userId;
+document.getElementById('userId').textContent = "わこち";
 
 
 /** window.addEventListener("load", async function () {
