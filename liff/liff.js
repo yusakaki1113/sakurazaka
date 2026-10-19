@@ -5,8 +5,10 @@ await liff.init({ liffId: "1234567890-abcdefgh" });
 if (!liff.isInClient() && !liff.isLoggedIn()) {
   liff.login();
 }
+document.getElementById('userId').textContent = liff.getProfile().userId;
 
-window.addEventListener("load", async function () {
+
+/** window.addEventListener("load", async function () {
     const userIdElement = document.getElementById('userId');
     const userTokenElement = document.getElementById('userToken');
 
@@ -42,3 +44,4 @@ window.addEventListener("load", async function () {
 
     userTokenElement.textContent = liff.getContext().utouId || "取得できません";
 });
+// **/
