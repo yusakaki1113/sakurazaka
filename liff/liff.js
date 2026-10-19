@@ -1,5 +1,11 @@
 const LIFF_ID = "2012066476-dzZFbFMw";
 
+await liff.init({ liffId: "1234567890-abcdefgh" });
+
+if (!liff.isInClient() && !liff.isLoggedIn()) {
+  liff.login();
+}
+
 window.addEventListener("load", async function () {
     const userIdElement = document.getElementById('userId');
     const userTokenElement = document.getElementById('userToken');
